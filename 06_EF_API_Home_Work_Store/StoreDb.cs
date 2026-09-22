@@ -12,7 +12,7 @@ namespace _06_EF_API_Home_Work_Store
         public StoreDb()
         {
             //this.Database.EnsureDeleted();
-            this.Database.EnsureCreated();
+            //this.Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,11 +38,6 @@ namespace _06_EF_API_Home_Work_Store
                 .IsRequired()
                 .HasMaxLength(50);
 
-            modelBuilder.Entity<Country>()
-                .HasMany(c => c.Cities)
-                .WithOne(c => c.Country)
-                .HasForeignKey(c => c.CountryKey);
-
             // ================= CITY =================      
             modelBuilder.Entity<City>()
                 .Property(c => c.Name)
@@ -65,12 +60,7 @@ namespace _06_EF_API_Home_Work_Store
             modelBuilder.Entity<Shop>()
                 .Property(s => s.Website)
                 .HasMaxLength(150);
-
-            modelBuilder.Entity<Shop>()
-                .HasMany(s => s.Workers)
-                .WithOne(w => w.Shop)
-                .HasForeignKey(w => w.ShopId);
-
+    
             // ================= POSITION =================
             modelBuilder.Entity<Position>().ToTable("Positions");
 
@@ -79,13 +69,8 @@ namespace _06_EF_API_Home_Work_Store
                 .IsRequired()
                 .HasMaxLength(50);
 
-            modelBuilder.Entity<Position>()
-                .HasMany(p => p.Workers)
-                .WithOne(w => w.Position)
-                .HasForeignKey(w => w.PositionId);
-
-            // ================= WORKER =================
-            modelBuilder.Entity<Worker>().ToTable("Employee");
+            // ================= WORKER - EMPLOYEES =================
+            modelBuilder.Entity<Worker>().ToTable("Employees");
             modelBuilder.Entity<Worker>().HasKey(w => w.UniqNumb);
 
             modelBuilder.Entity<Worker>()
@@ -114,12 +99,7 @@ namespace _06_EF_API_Home_Work_Store
                 .Property(c => c.Name)
                 .IsRequired()
                 .HasMaxLength(50);
-
-            modelBuilder.Entity<Category>()
-                .HasMany(c => c.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId);
-
+            
             // ================= PRODUCT =================
             modelBuilder.Entity<Product>().ToTable("Products");
 
@@ -131,7 +111,30 @@ namespace _06_EF_API_Home_Work_Store
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(10,2)"
-);
+            );
+
+            // ========= CONNECTIONS ========
+
+            modelBuilder.Entity<Country>()
+                .HasMany(c => c.Cities)
+                .WithOne(c => c.Country)
+                .HasForeignKey(c => c.CountryKey);
+
+            modelBuilder.Entity<Shop>()
+                .HasMany(s => s.Workers)
+                .WithOne(w => w.Shop)
+                .HasForeignKey(w => w.ShopId);
+
+            modelBuilder.Entity<Position>()
+                .HasMany(p => p.Workers)
+                .WithOne(w => w.Position)
+                .HasForeignKey(w => w.PositionId);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Products)
+                .WithOne(p => p.Category)
+                .HasForeignKey(p => p.CategoryId);
+
 
             // ================= SEEDER =================
             modelBuilder.SeedCountries();

@@ -97,20 +97,20 @@ namespace _06_EF_API_Home_Work_Store
                     UniqNumb = 1,
                     Name = "Ivan",
                     Surname = "Rotko", 
-                    Salary = 200000,
+                    Salary = 2000000,
                     Email = "ivan@gmail.com",
-                    PhoneNumber = "123-456",
+                    PhoneNumber = "050-123-456",
                     PositionId = 1,
                     ShopId = 1 
                 },
                 new Worker 
                 {
                     UniqNumb = 2,
-                    Name = "Oleg", 
-                    Surname = "King",
+                    Name = "Elon", 
+                    Surname = "Musk",
                     Salary = 15000,
-                    Email = "oleg@gmail.com",
-                    PhoneNumber = "555-777",
+                    Email = "elon@gmail.com",
+                    PhoneNumber = "205-555-777",
                     PositionId = 2,
                     ShopId = 2
                 }
@@ -140,7 +140,7 @@ namespace _06_EF_API_Home_Work_Store
                 {
                     Id = 1,
                     Name = "CheryCake",
-                    Price = 30000,
+                    Price = 300,
                     Discount = 5,
                     CategoryId = 1,
                     Quantity = 10,
